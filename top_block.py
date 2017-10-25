@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Tue Oct 24 11:56:49 2017
+# Generated: Wed Oct 25 21:48:05 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -231,13 +231,13 @@ class top_block(gr.top_block, Qt.QWidget):
         self.blks2_tcp_source_0 = grc_blks2.tcp_source(
         	itemsize=gr.sizeof_char*1,
         	addr="127.0.0.1",
-        	port=4321,
+        	port=3456,
         	server=True,
         )
         self.blks2_tcp_sink_0 = grc_blks2.tcp_sink(
         	itemsize=gr.sizeof_char*1,
         	addr="127.0.0.1",
-        	port=12345,
+        	port=6789,
         	server=False,
         )
         self.blks2_packet_encoder_0 = grc_blks2.packet_mod_b(grc_blks2.packet_encoder(

@@ -7,7 +7,8 @@ import sys
 import screenReceptor
 
 def main():
-    PORTA = 12345
+    PORTA = 1324
+    
 
     print("Inicializando socket TCP/IP")
     # Create a TCP/IP socket
@@ -20,7 +21,8 @@ def main():
 
     # Listen for incoming connections
     sock.listen(1)
-
+    result = ""
+    
     while True:
         # Wait for a connection
         print("waiting for a connection")
@@ -28,14 +30,13 @@ def main():
 
         try:
             print(" connection from {}".format(client_address))
-            result = ""
+            
             # Receive the data in small chunks and retransmit it
             while True:
                 data = connection.recv(16)
                 data = data.decode('utf-8')
                 result += data
                 print("{}".format(data))
-                screenReceptor.putText(data)
                 if(len(data) <= 0):
                     print("{}".format(result))
                     break

@@ -1,23 +1,67 @@
-from tkinter import *
+import tkinter as tk
+from recepcao import Receptor
+from transmissao import Transmissor
+import threading as trd
+import time
 
-window = Tk()
-window.title = 'Enviador de texto!'
+class Interface:
 
-input_user = StringVar()
-input_field = Entry(window, text=input_user)
-input_field.pack(side=BOTTOM, fill=X)
+    def __init__(self):
+        self.receptor = Receptor()
+        self.janela = tk.Tk()
+        self.janela.geometry("600x500+100+100")
+        self.janela.title("enviador_de_mensagens.png")
+        self.janela.configure(background = 'white')
+        self.janela.resizable(True, True)
 
-def enter_pressed(event):
-    input_get = input_field.get()
-    print(input_get)
-    label = Label(frame, text=input_get)
-    input_user.set('')
-    label.pack()
-    return "break"
+       
 
-frame = Frame(window, width=300, height=300)
-frame.pack_propagate(False) # prevent frame to resize to the labels size
-input_field.bind("<Return>", enter_pressed)
-frame.pack()
+        trd.Thread(target=self.recebe).start()
+        self.transmissor = Transmissor()
 
-window.mainloop()
+        self.janela.rowconfigure(0, minsize = 120)
+        self.janela.rowconfigure(1, minsize = 10)
+        self.janela.rowconfigure(2, minsize = 60)
+        self.janela.rowconfigure(3, minsize = 10)
+        self.janela.columnconfigure(0, minsize = 40)
+        self.janela.columnconfigure(1, minsize = 20)
+
+
+        self.textView = tk.Text(self.janela, height=15, width=85)
+        self.textView.grid(row=1 ,column = 0, sticky = "nsew")
+
+        self.textField = tk.Text(self.janela, height=1, width = 1)
+        self.textField.grid(row = 2 ,column = 0,sticky = "nsew")
+        quoteq = ""
+        self.textField.insert(tk.END, quoteq)
+
+
+        self.button_treinar = tk.Button(self.janela, text = "MANDAR", height = 3, width = 10)
+        self.button_treinar.grid(row = 3, column = 0,sticky = "nsew")
+        self.button_treinar.configure(command = self.mandar)
+
+
+
+    def iniciar(self):
+        self.janela.mainloop()
+
+    def mandar(self):
+        input_text = self.textField.get("1.0",tk.END)
+        self.textView.insert(tk.END, 'Mandado: '+input_text)
+        self.transmissor.msg = "   " + input_text + "}}}}}}}"
+        trd.Thread(target=self.transmissor.envia).start()
+
+    def recebe(self):
+        
+        trd.Thread(target=self.receptor.serverSocket).start()
+
+        while True:
+            if len(self.receptor.recebido) > 0:
+                self.textView.insert(tk.END,'Recebido:' + self.receptor.recebido + '\n')
+                self.receptor.recebido = ""
+
+            time.sleep(0.5)
+
+
+app = Interface()
+app.iniciar()

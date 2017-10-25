@@ -736,7 +736,7 @@
     </param>
     <param>
       <key>port</key>
-      <value>12345</value>
+      <value>6789</value>
     </param>
     <param>
       <key>vlen</key>
@@ -795,7 +795,7 @@
     </param>
     <param>
       <key>port</key>
-      <value>4321</value>
+      <value>3456</value>
     </param>
     <param>
       <key>vlen</key>

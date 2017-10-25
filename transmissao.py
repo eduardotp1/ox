@@ -1,33 +1,43 @@
 import socket
 import sys
 
-# Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Connect the socket to the port where the server is listening
-server_address = ('localhost', 4321)
-#print >>sys.stderr, 'connecting to %s port %s' % server_address
-sock.connect(server_address)
 
-try:
+class Transmissor():
     
-    # Send data
-    message = '    This is the message.  It will be repeated.   '
-    #print >>sys.stderr, 'sending "%s"' % message
+    def __init__(self):
+        self.msg =""
+        # Create a TCP/IP socket
+        self.meia = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    b = message.encode('utf-8')
-
-    sock.sendall(b)
-
-    # Look for the response
-    amount_received = 0
-    amount_expected = len(message)
+        # Connect the socket to the port where the server is listening
+        server_address = ('localhost', 3456)
+        #print >>sys.stderr, 'connecting to %s port %s' % server_address
+        self.meia.connect(server_address)
     
-    while amount_received < amount_expected:
-        data = sock.recv(16)
-        amount_received += len(data)
-        #print >>sys.stderr, 'received "%s"' % data
 
-finally:
-    #print >>sys.stderr, 'closing socket'
-    sock.close()
+
+
+    def envia(self):
+
+        try:
+    
+            msg_bytes = self.msg.encode('utf-8')
+
+            self.meia.sendall(msg_bytes)
+
+            # Look for the response
+            amount_received = 0
+            amount_expected = len(self.msg)
+            
+            while amount_received < amount_expected:
+                data = self.meia.recv(16)
+                amount_received += len(data)
+                #print >>sys.stderr, 'received "%s"' % data
+
+        finally:
+            #print >>sys.stderr, 'closing socket'
+            self.meia.close()
+
+
+
