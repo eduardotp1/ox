@@ -10,8 +10,8 @@ class Interface:
         self.receptor = Receptor()
         self.janela = tk.Tk()
         self.janela.geometry("600x500+100+100")
-        self.janela.title("enviador_de_mensagens.png")
-        self.janela.configure(background = 'white')
+        self.janela.title("enviador_de_mensagens_do_hackerman.png")
+        self.janela.configure(background = 'black')
         self.janela.resizable(True, True)
 
        
@@ -27,10 +27,10 @@ class Interface:
         self.janela.columnconfigure(1, minsize = 20)
 
 
-        self.textView = tk.Text(self.janela, height=15, width=85)
+        self.textView = tk.Text(self.janela, height=15, width=85, bg='black', fg='green')
         self.textView.grid(row=1 ,column = 0, sticky = "nsew")
 
-        self.textField = tk.Text(self.janela, height=1, width = 1)
+        self.textField = tk.Text(self.janela, height=1, width = 1, bg='black', fg='green')
         self.textField.grid(row = 2 ,column = 0,sticky = "nsew")
         quoteq = ""
         self.textField.insert(tk.END, quoteq)
