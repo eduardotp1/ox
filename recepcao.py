@@ -10,7 +10,7 @@ class Receptor():
 
 
     def serverSocket(self):
-        PORTA = 6789
+        PORTA = 8642
 
         print("Inicializando socket TCP/IP")
         # Create a TCP/IP socket

@@ -11,7 +11,7 @@ class Transmissor():
         self.meia = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # Connect the socket to the port where the server is listening
-        server_address = ('localhost', 3456)
+        server_address = ('localhost', 2468)
         #print >>sys.stderr, 'connecting to %s port %s' % server_address
         self.meia.connect(server_address)
     
