@@ -32,7 +32,7 @@ class Interface:
 
         self.textField = tk.Text(self.janela, height=1, width = 1, bg='black', fg='green')
         self.textField.grid(row = 2 ,column = 0,sticky = "nsew")
-        quoteq = ""
+        quoteq = ">_"
         self.textField.insert(tk.END, quoteq)
 
 
