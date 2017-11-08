@@ -22,16 +22,16 @@ void sw_uart_write_string(due_sw_uart *uart, char* stringData) {
   sw_uart_write_data(uart, stringData, strlen(stringData));
 }
 
-int calc_odd_parity(char data) {
+int calc_even_parity(char data) {
   int paridade;
   for(int i = 0; i < 8; i++) {
     paridade += data >> i & 0X01;
   }
   if(paridade%2 == 0) {
-    return 1
+    return 1;
   }
   else {
-    return 0
+    return 0;
   }
 }
 
@@ -45,16 +45,32 @@ int sw_uart_receive_byte(due_sw_uart *uart, char* data) {
   char parity, rx_parity;
   
   // aguarda start bit
+  boolean startbit = false;
+  while(!false) {
+    // Confirma start BIT
+    if(digitalRead(uart->pin_rx) == 0) {
+      _sw_uart_wait_half_T(uart);
 
-  // Confirma start BIT
-  
-  // checa se bit ainda é 0
-  
+      // checa se bit ainda é 0
+      if(digitalRead(uart -> pin_rx) == 0){
+        startbit = true;
+      }
+    }    
+  }
+
   // recebe dados
+  for (int i = 0; i < 8; i++){
+    nchar = nchar|(digitalRead(uart -> pin_rx) << i);
+    _sw_uart_wait_T(uart);  
+  }
+
 
   // recebe paridade
+  rx_parity = digitalRead(uart -> pin_rx);
+  _sw_uart_wait_T(uart); 
 
   // recebe stop bit
+  int stop = digitalRead(uart -> pin_rx);
   
   // checa paridade
   if(parity != rx_parity) {
