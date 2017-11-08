@@ -22,8 +22,17 @@ void sw_uart_write_string(due_sw_uart *uart, char* stringData) {
   sw_uart_write_data(uart, stringData, strlen(stringData));
 }
 
-int calc_even_parity(char data) {
-  
+int calc_odd_parity(char data) {
+  int paridade;
+  for(int i = 0; i < 8; i++) {
+    paridade += data >> i & 0X01;
+  }
+  if(paridade%2 == 0) {
+    return 1
+  }
+  else {
+    return 0
+  }
 }
 
 // recebimento de dados da serial
