@@ -56,20 +56,23 @@ void sw_uart_write_byte(due_sw_uart *uart, char data) {
   
   // envia payload
   for(int i = 0; i < uart->databits; i++) {
-    int pay = data >> i & 0X01;
-    digitalWrite(uart -> pin_tx, pay);
+    digitalWrite(uart -> pin_tx, data >> i & 0X01);
     _sw_uart_wait_T(uart);
   }
 
   // envia paridade, se existir
   if(uart->paritybit != SW_UART_NO_PARITY) {
     digitalWrite(uart -> pin_tx, parity);
+    _sw_uart_wait_T(uart);
   }
   
   // envia stop bit, se existir
   for(int i = 0; i < uart->stopbits; i++) {
     digitalWrite(uart -> pin_tx, HIGH);
+    _sw_uart_wait_T(uart);
   } 
+
+  digitalWrite(uart -> pin_tx, HIGH);
 }
 
 // MCK 21MHz
