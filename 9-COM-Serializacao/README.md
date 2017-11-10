@@ -5,7 +5,7 @@ O protocolo tem um estado inicial de sinal 1, constante, para enviar um dado, el
 
 ### Onda
 
-![ONDA](foto.PNG)
+![ONDA](foto.png)
 
 
 ### Descricao do codigo
